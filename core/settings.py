@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'collaborators',
     'sectors',
+    'centers',
 ]
 
 MIDDLEWARE = [

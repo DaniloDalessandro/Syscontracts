@@ -1,0 +1,108 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+<div class="container-fluid">
+    <div class="page-inner">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4 class="card-title mb-0">Gestão de Centros de Custo</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Formulário para Adicionar Centro de Custo Gestor -->
+                        <div class="mb-4">
+                            <h5 class="mb-3">Adicionar Centro de Custo Gestor</h5>
+                            <form method="post" class="mb-3">
+                                {% csrf_token %}
+                                {{ gestor_form.as_p }}
+                                <button type="submit" class="btn btn-success">Adicionar</button>
+                            </form>
+                            <input type="text" id="searchInputGestor" class="form-control mb-3" placeholder="Pesquisar por nome...">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="centrodecustogestorTable">
+                                    {% for gestor in gestores %}
+                                    <tr>
+                                        <td>{{ gestor.nome }}</td>
+                                        <td class="text-center">
+                                            <a href="{% url 'centrodecustogestor_update' gestor.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                                            <a href="{% url 'centrodecustogestor_delete' gestor.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Formulário para Adicionar Centro de Custo Solicitante -->
+                        <div class="mb-4">
+                            <h5 class="mb-3">Adicionar Centro de Custo Solicitante</h5>
+                            <form method="post" class="mb-3">
+                                {% csrf_token %}
+                                {{ solicitante_form.as_p }}
+                                <button type="submit" class="btn btn-success">Adicionar</button>
+                            </form>
+                            <input type="text" id="searchInputSolicitante" class="form-control mb-3" placeholder="Pesquisar por nome...">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Centro Gestor</th>
+                                        <th>Centro Solicitante</th>
+                                        <th class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="centrodeustosolicitanteTable">
+                                    {% for solicitante in solicitantes %}
+                                    <tr>
+                                        <td>{{ solicitante.centro_gestor.nome }}</td>
+                                        <td>{{ solicitante.nome }}</td>
+                                        <td class="text-center">
+                                            <a href="{% url 'centrodeustosolicitante_update' solicitante.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                                            <a href="{% url 'centrodeustosolicitante_delete' solicitante.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchInputGestor').addEventListener('keyup', function() {
+        var searchValue = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#centrodecustogestorTable tr');
+        rows.forEach(function(row) {
+            var nome = row.cells[0].textContent.toLowerCase();
+            if (nome.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    document.getElementById('searchInputSolicitante').addEventListener('keyup', function() {
+        var searchValue = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#centrodeustosolicitanteTable tr');
+        rows.forEach(function(row) {
+            var nome = row.cells[1].textContent.toLowerCase();
+            if (nome.includes(searchValue)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+{% endblock %}
