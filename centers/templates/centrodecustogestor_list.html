@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">Centros de Custo Gestor</h4>
-                        <a href="{% url 'centrodecustogestor_create' %}" class="btn btn-success btn-sm">
+                        <a href="{% url 'centro_gestor_create' %}" class="btn btn-success btn-sm">
                             <i class="fas fa-plus"></i> Adicionar Centro de Custo Gestor
                         </a>
                     </div>
@@ -31,8 +31,8 @@
                                 <tr>
                                     <td>{{ centro.nome }}</td>
                                     <td class="text-center">
-                                        <a href="{% url 'centro_custogestor_update' centro.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="{% url 'centrodecustogestor_delete' centro.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+                                        <a href="{% url 'centro_gestor_update' centro.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="{% url 'centro_gestor_delete' centro.pk %}" class="btn btn-danger btn-sm">Deletar</a>
                                     </td>
                                 </tr>
                                 {% empty %}

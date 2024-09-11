@@ -8,13 +8,13 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">Centros de Custo Solicitantes</h4>
-                        <a href="{% url 'centrodecustosolicitante_create' %}" class="btn btn-success btn-sm">
+                        <a href="{% url 'centro_solicitante_create' %}" class="btn btn-success btn-sm">
                             <i class="fas fa-plus"></i> Adicionar Centro de Custo Solicitante
                         </a>
                     </div>
                     <div class="card-body">
                         <!-- Campo de pesquisa -->
-                        <form method="GET" action="{% url 'centrodecustosolicitante_list' %}">
+                        <form method="GET" action="{% url 'centro_solicitante_list' %}">
                             <div class="input-group mb-3">
                                 <input type="text" id="searchInput" class="form-control" name="search" value="{{ search_query }}" placeholder="Pesquisar centro de custo...">
                                 <div class="input-group-append">
@@ -38,8 +38,8 @@
                                     <td>{{ solicitante.centro_gestor.nome }}</td>
                                     <td>{{ solicitante.nome }}</td>
                                     <td class="text-center">
-                                        <a href="{% url 'centrodecustosolicitante_update' solicitante.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                                        <a href="{% url 'centrodecustosolicitante_delete' solicitante.pk %}" class="btn btn-danger btn-sm">Deletar</a>
+                                        <a href="{% url 'centro_solicitante_update' solicitante.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                                        <a href="{% url 'centro_solicitante_delete' solicitante.pk %}" class="btn btn-danger btn-sm">Deletar</a>
                                     </td>
                                 </tr>
                                 {% empty %}
