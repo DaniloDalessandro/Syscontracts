@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+<div class="container">
+    <div class="page-inner">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">Detalhes do Auxílio Colaborador</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <strong>Beneficiado:</strong>
+                            <p>{{ auxilio_colaborador.beneficiado.nome_completo }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Orçamento:</strong>
+                            <p>{{ auxilio_colaborador.orcamento }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Tipo de Auxílio:</strong>
+                            <p>{{ auxilio_colaborador.get_tipo_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Benefício:</strong>
+                            <p>{{ auxilio_colaborador.beneficio }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valor por Parcela:</strong>
+                            <p>R$ {{ auxilio_colaborador.valor_parcela }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Quantidade de Parcelas:</strong>
+                            <p>{{ auxilio_colaborador.qtd_parcelas }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valor Total:</strong>
+                            <p>R$ {{ auxilio_colaborador.valor_total }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Observações:</strong>
+                            <p>{{ auxilio_colaborador.obs }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Mês de Início:</strong>
+                            <p>{{ auxilio_colaborador.mes_inicio }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Mês de Término:</strong>
+                            <p>{{ auxilio_colaborador.mes_fim }}</p>
+                        </div>
+                        <div class="text-center mt-4 d-flex justify-content-start">
+                            <a href="{% url 'auxilio_colaborador_list' %}" class="btn btn-danger w-40 mx-2">Voltar à lista</a>
+                            <a href="{% url 'auxilio_colaborador_update' auxilio_colaborador.pk %}" class="btn btn-warning w-40 mx-2">Editar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -23,4 +23,6 @@ urlpatterns = [
     path('centros/',include('centers.urls')),
     path('colaborador/',include('collaborators.urls')),
     path('orcamentos/',include('budgets.urls')),
+    path('contratos/',include('contracts.urls')),
+    path('auxilios/',include('aid.urls')),
 ]

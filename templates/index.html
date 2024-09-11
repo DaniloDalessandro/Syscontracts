@@ -129,12 +129,12 @@
                 <div class="collapse" id="auxilios">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="">
+                      <a href="{% url 'auxilio_colaborador_list' %}">
                         <span class="sub-item">Lista de Auxílios</span>
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="{% url 'auxilio_colaborador_create' %}">
                         <span class="sub-item">Adicionar Auxílio</span>
                       </a>
                     </li>
@@ -228,12 +228,12 @@
                 <div class="collapse" id="tables">
                   <ul class="nav nav-collapse">
                     <li>
-                      <a href="">
+                      <a href="{% url 'linha_orcamentaria_list' %}">
                         <span class="sub-item">Listar Linhas Orçamentarias</span>
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="{% url 'linha_orcamentaria_create' %}">
                         <span class="sub-item">Adicionar Linhas Orçamentarias</span>
                       </a>
                     </li>
@@ -502,6 +502,19 @@
         {% block 'conteudo' %}
 
         {% endblock %}
+        {% if messages %}
+        <div class="container mt-4">
+          {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
         <footer class="footer">
           <div class="container-fluid d-flex justify-content-between">
             <nav class="pull-left">
@@ -529,6 +542,10 @@
    <script src="{% static 'assets/js/core/jquery-3.7.1.min.js' %}"></script>
    <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
    <script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+   
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
    <!-- jQuery Scrollbar -->
    <script src="{% static 'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>

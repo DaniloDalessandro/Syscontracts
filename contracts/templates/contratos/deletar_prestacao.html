@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+<div class="container">
+  <h2>Tem certeza de que deseja deletar esta prestação?</h2>
+  
+  <p>Contrato: {{ object.contrato.numero_protocolo }}</p>
+  <p>Valor da Prestação: R$ {{ object.valor_parcela }}</p>
+  <p>Data de Pagamento: {{ object.data_pagamento|date:"d/m/Y" }}</p>
+  
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Deletar</button>
+    <!-- Ajuste: redirecionar para a página de detalhes do contrato -->
+    <a href="{% url 'contrato_detail' object.contrato.pk %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

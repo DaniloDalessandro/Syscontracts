@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+<div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Auxílio Colaborador</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="baneficiado">Beneficiado</label>
+                                        {{ form.beneficiado }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="orcamento">Orçamento</label>
+                                        {{ form.orcamento }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tipo">Tipo de Auxílio</label>
+                                        {{ form.tipo }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="beneficio">Benefício</label>
+                                        {{ form.beneficio }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="valor_parcela">Valor por Parcela</label>
+                                        {{ form.valor_parcela }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="qtd_parcelas">Quantidade de Parcelas</label>
+                                        {{ form.qtd_parcelas }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mes_inicio">Mês de Início</label>
+                                        {{ form.mes_inicio }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="obs">Observações</label>
+                                        {{ form.obs }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <a href="{% url 'auxilio_colaborador_list' %}" class="btn btn-danger">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+<div class="container">
+    <div class="page-inner">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">Detalhes da Linha Orçamentária</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <strong>Tipo de Linha:</strong>
+                            <p>{{ linhaorcamentaria.get_classe_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Custo/Despesa:</strong>
+                            <p>{{ linhaorcamentaria.get_custo_despesa_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Centro de Custo Gestor:</strong>
+                            <p>{{ linhaorcamentaria.centro_custo_gestor }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Centro de Custo Solicitante:</strong>
+                            <p>{{ linhaorcamentaria.centro_custo_solicitante }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Finalidade:</strong>
+                            <p>{{ linhaorcamentaria.descricao_resumida }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Objeto:</strong>
+                            <p>{{ linhaorcamentaria.objeto }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Classificação Orçamentária:</strong>
+                            <p>{{ linhaorcamentaria.classificacao_orcamento }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Fiscal:</strong>
+                            <p>{{ linhaorcamentaria.possivel_fiscal }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Ano Orçamento:</strong>
+                            <p>{{ linhaorcamentaria.ano_orcamento }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Tipo de Contrato:</strong>
+                            <p>{{ linhaorcamentaria.get_tipo_contrato_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Status da Linha Orçamentária:</strong>
+                            <p>{{ linhaorcamentaria.get_status_linha_orcamentaria_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Tipo de Provável Contratação:</strong>
+                            <p>{{ linhaorcamentaria.get_tipo_provavel_contratacao_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valor Orçado:</strong>
+                            <p>{{ linhaorcamentaria.valor_orcado }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Status de Elaboração do TR:</strong>
+                            <p>{{ linhaorcamentaria.get_status_elaboracao_tr_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Necessidade de Contratação:</strong>
+                            <p>{{ linhaorcamentaria.necessidade_contratacao }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Status do Processo:</strong>
+                            <p>{{ linhaorcamentaria.get_status_processo_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Status da Contratação:</strong>
+                            <p>{{ linhaorcamentaria.get_status_contratacao_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Observações:</strong>
+                            <p>{{ linhaorcamentaria.obs_contrato }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valor Aprovisionado:</strong>
+                            <p>{{ linhaorcamentaria.valor_aprovisionado }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valor Remanejado Total:</strong>
+                            <p>{{ linhaorcamentaria.valor_remanejado_total }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valor Atual:</strong>
+                            <p>{{ linhaorcamentaria.saldo_orcamentario_pos_remanejamento }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Tempo para Contratação:</strong>
+                            <p>{{ linhaorcamentaria.tempo_para_contratacao }} dias</p>
+                        </div>
+                        <div class="text-center mt-4 d-flex justify-content-start">
+                            <a href="{% url 'linha_orcamentaria_list' %}" class="btn btn-danger w-40 mx-2">Voltar à lista</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

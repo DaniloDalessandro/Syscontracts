@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+
+<div class="container mt-5">
+    <h1>Confirmar Exclusão</h1>
+    <p>Tem certeza de que deseja excluir o contrato "{{ contrato }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a href="{% url 'contrato_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}
