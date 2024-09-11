@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+<div class="container">
+    <div class="page-inner">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{% if form.instance.pk %}Editar{% else %}Adicionar{% endif %} Orçamento Externo</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.ano.id_for_label }}">{{ form.ano.label }}</label>
+                                        {{ form.ano }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.centro.id_for_label }}">{{ form.centro.label }}</label>
+                                        {{ form.centro }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.classe.id_for_label }}">{{ form.classe.label }}</label>
+                                        {{ form.classe }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.valor.id_for_label }}">{{ form.valor.label }}</label>
+                                        {{ form.valor }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.tipo_movimentacao.id_for_label }}">{{ form.tipo_movimentacao.label }}</label>
+                                        {{ form.tipo_movimentacao }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-action mt-4">
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <a href="{% url 'orcamento_externo_list' %}" class="btn btn-danger">Voltar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

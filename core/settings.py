@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'collaborators',
     'sectors',
     'centers',
+    'budgets',
 ]
 
 MIDDLEWARE = [

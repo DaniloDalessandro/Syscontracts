@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+<div class="container">
+    <div class="page-inner">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">Detalhes do Orçamento</h4>
+                        <a href="{% url 'orcamento_update' orcamento.pk %}" class="btn btn-primary mx-2 w-40">Editar</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <strong>Ano:</strong>
+                            <p>{{ orcamento.ano }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Centro de Custo Gestor:</strong>
+                            <p>{{ orcamento.centro }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Classe:</strong>
+                            <p>{{ orcamento.get_classe_display }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valor:</strong>
+                            <p>{{ orcamento.valor }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valores Adicionados:</strong>
+                            <p>{{ orcamento.valores_adicionados }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valores Enviados:</strong>
+                            <p>{{ orcamento.valores_enviados }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Valor Total:</strong>
+                            <p>{{ orcamento.valor_total }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Orçamento Total:</strong>
+                            <p>{{ orcamento.orcamento_total }}</p>
+                        </div>
+                        <div class="text-center mt-4 d-flex justify-content-start">
+                            <a href="{% url 'orcamento_list' %}" class="btn btn-danger w-40 mx-2">Voltar à lista</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+
+{% block 'conteudo' %}
+<div class="container">
+    <div class="page-inner">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title text-center">{% if form.instance.pk %}Editar Orçamento{% else %}Adicionar Orçamento{% endif %}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.ano.id_for_label }}">{{ form.ano.label }}</label>
+                                        {{ form.ano }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.centro.id_for_label }}">{{ form.centro.label }}</label>
+                                        {{ form.centro }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.classe.id_for_label }}">{{ form.classe.label }}</label>
+                                        {{ form.classe }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.valor.id_for_label }}">{{ form.valor.label }}</label>
+                                        {{ form.valor }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group readonly-field">
+                                        <label>Valores Adicionados</label>
+                                        <input type="text" value="{{ form.instance.valores_adicionados }}" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group readonly-field">
+                                        <label>Valores Enviados</label>
+                                        <input type="text" value="{{ form.instance.valores_enviados }}" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group readonly-field">
+                                        <label>Valor Total</label>
+                                        <input type="text" value="{{ form.instance.valor_total }}" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group readonly-field">
+                                        <label>Orçamento Total</label>
+                                        <input type="text" value="{{ form.instance.orcamento_total }}" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-center mt-4 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-success mx-2 w-40">Salvar</button>
+                                <a href="{% url 'orcamento_list' %}" class="btn btn-danger mx-2 w-40">Voltar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
