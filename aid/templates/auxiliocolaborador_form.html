@@ -2,6 +2,7 @@
 
 {% block 'conteudo' %}
 <div class="container">
+
     <div class="page-inner">
         <div class="row">
             <div class="col-md-12">
@@ -12,40 +13,61 @@
                     <div class="card-body">
                         <form method="post">
                             {% csrf_token %}
+                            <!-- Primeira linha com 3 campos -->
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="baneficiado">Beneficiado</label>
+                                        <label for="beneficiado">Beneficiado</label>
                                         {{ form.beneficiado }}
                                     </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="orcamento">Orçamento</label>
                                         {{ form.orcamento }}
                                     </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="tipo">Tipo de Auxílio</label>
                                         {{ form.tipo }}
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- Segunda linha com 2 campos -->
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="beneficio">Benefício</label>
                                         {{ form.beneficio }}
                                     </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="valor_parcela">Valor por Parcela</label>
                                         {{ form.valor_parcela }}
                                     </div>
+                                </div>
+                            </div>
+
+                            <!-- Terceira linha com 2 campos -->
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="qtd_parcelas">Quantidade de Parcelas</label>
                                         {{ form.qtd_parcelas }}
                                     </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="mes_inicio">Mês de Início</label>
                                         {{ form.mes_inicio }}
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Linha para Observações -->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -54,6 +76,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Ações (botões) -->
                             <div class="card-action">
                                 <button type="submit" class="btn btn-success">Salvar</button>
                                 <a href="{% url 'auxilio_colaborador_list' %}" class="btn btn-danger">Cancelar</a>
