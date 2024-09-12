@@ -106,37 +106,6 @@ class LinhaOrcamentaria(models.Model):
     status_contratacao = models.CharField(max_length=100, choices=STATUSCONTRATACAO_CHOICES, blank=True, null=True)
     obs_contrato = models.TextField(max_length=400, blank=True, null=True)
 
-    def saldo_disponivel(self):
-        total_contratos = self.contratos.aggregate(total=Sum('valor_contrato'))['total'] or Decimal('0.0')
-        saldo = Decimal(self.valor_orcado) - total_contratos
-        return saldo
-        
-    def save(self, *args, **kwargs):
-        if self.ano_orcamento and self.valor_orcado > self.ano_orcamento.valor_restante:
-            raise ValidationError('O valor orçado excede o valor restante do orçamento.')
-        super().save(*args, **kwargs)
-
-    
-    @property
-    def valor_remanejado_total(self):
-        remanejamentos_origem = self.remanejamentos_origem.aggregate(total=Sum('valor'))['total'] or Decimal(0.0)
-        remanejamentos_destino = self.remanejamentos_destino.aggregate(total=Sum('valor'))['total'] or Decimal(0.0)
-        return remanejamentos_origem + remanejamentos_destino
-
-    @property
-    def saldo_orcamentario_pos_remanejamento(self):
-        valor_remanejado_origem = self.remanejamentos_origem.aggregate(total=Sum('valor'))['total'] or Decimal(0.0)
-        valor_remanejado_destino = self.remanejamentos_destino.aggregate(total=Sum('valor'))['total'] or Decimal(0.0)
-        saldo = Decimal(self.valor_orcado) + valor_remanejado_destino - valor_remanejado_origem - Decimal(self.valor_utilizado)
-        return saldo
-
-    @property
-    def tempo_para_contratacao(self):
-        if self.necessidade_contratacao:
-            dias_restantes = (self.necessidade_contratacao - datetime.now().date()).days
-            return max(dias_restantes, 0)
-        return None
-
     def __str__(self):
         return self.descricao_resumida or "Linha sem descrição"
 
@@ -147,3 +116,77 @@ class LinhaOrcamentaria(models.Model):
 
 # ============================================================================================================
 
+class Contrato(models.Model):
+    linha_orcamentaria = models.ForeignKey(LinhaOrcamentaria, on_delete=models.PROTECT, related_name='contratos')
+    numero_protocolo = models.CharField(max_length=7, unique=True, blank=True, editable=False, verbose_name='Contrato')
+    data_assinatura = models.DateField(null=True, blank=True)
+    data_vencimento = models.DateField(null=True, blank=True)
+    fiscal_principal = models.ForeignKey(Colaborador, on_delete=models.PROTECT, related_name='contratos_fiscal_principal', verbose_name='Fiscal Principal')
+    fiscal_substituto = models.ForeignKey(Colaborador, on_delete=models.PROTECT, related_name='contratos_fiscal_substituto', verbose_name='Fiscal Substituto')
+    valor_contrato = models.DecimalField(max_digits=10, decimal_places=2)
+    TIPO_PAGAMENTO_CHOICES = [
+        ('PAGAMENTO ÚNICO','PAGAMENTO ÚNICO'),
+        ('PAGAMENTO ANUAL','PAGAMENTO ANUAL'),
+        ('PAGAMENTO SEMANAL','PAGAMENTO SEMANAL'),
+        ('PAGAMENTO MENSAL','PAGAMENTO MENSAL'),
+        ('PAGAMENTO QUIZENAL','PAGAMENTO QUINZENAL'),
+        ('PAGAMENTO TRIMESTRAL','PAGAMENTO TRIMESTRAL'),
+        ('PAGAMENTO SEMESTRAL','PAGAMENTO SEMESTRAL'),
+        ('PAGAMENTO SOB DEMANDA','PAGAMENTO SOB DEMANDA'),
+    ]
+    natureza_pagamento = models.CharField(choices=TIPO_PAGAMENTO_CHOICES,max_length=30)
+       
+    def generate_protocolo(self):
+        year_suffix = timezone.now().year % 100
+        last_protocolo = Contrato.objects.filter(numero_protocolo__endswith=f"/{year_suffix}").order_by('id').last()
+        
+        if last_protocolo:
+            last_sequence = int(last_protocolo.numero_protocolo.split('/')[0])
+            new_sequence = f"{last_sequence + 1:04}"
+        else:
+            new_sequence = "0001"
+
+        return f"{new_sequence}/{year_suffix}"
+    
+    def __str__(self):
+        return self.numero_protocolo or "Linha Orçamentária sem Descrição"
+    
+#===============================================================================================================================
+
+class Prestacao(models.Model):
+    contrato = models.ForeignKey('Contrato', on_delete=models.CASCADE)
+    numero_parcela = models.PositiveIntegerField(editable=False)  # O número da parcela será gerado automaticamente
+    valor_parcela = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
+    data_pagamento = models.DateField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Se for uma nova prestação (sem ID)
+            # Verifica quantas prestações já existem para este contrato
+            total_prestacoes = Prestacao.objects.filter(contrato=self.contrato).count()
+            # Define o próximo número da parcela
+            self.numero_parcela = total_prestacoes + 1
+
+        super(Prestacao, self).save(*args, **kwargs)
+
+#===============================================================================================================================
+    
+class Remanejamento(models.Model):
+    valor = models.DecimalField(max_digits=10, decimal_places=2,validators=[MinValueValidator(0.01)])
+    linha_origem = models.ForeignKey(LinhaOrcamentaria, related_name='remanejamentos_origem', on_delete=models.CASCADE)
+    linha_destino = models.ForeignKey(LinhaOrcamentaria, related_name='remanejamentos_destino', on_delete=models.CASCADE)
+    data_remanejamento = models.DateTimeField(default=timezone.now)
+    motivo = models.TextField()
+    
+    class Meta:
+        verbose_name = 'Remanejamento'
+        verbose_name_plural = 'Remanejamentos'
+
+#===============================================================================================================================
+
+class Aditivo(models.Model):
+    contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE, related_name='aditivos')
+    data = models.DateField(null=True,blank=True)
+    valor = models.DecimalField(max_digits=10, decimal_places=2,null=True,blank=True,default=0.0)
+    justificativa = models.CharField(max_length=150)
+
+    

@@ -1,5 +1,5 @@
 from django import forms
-from .models import LinhaOrcamentaria
+from .models import LinhaOrcamentaria,Contrato,Prestacao,Remanejamento,Aditivo
 
 # =========================================================================================================================
 
@@ -65,4 +65,75 @@ class LinhaOrcamentariaForm(forms.ModelForm):
             'status_processo': 'Status do Processo',
             'status_contratacao': 'Status da Contratação',
             'obs_contrato': 'Observações do Contrato',
+        }
+
+
+# =========================================================================================================================
+
+class ContratoForm(forms.ModelForm):
+    class Meta:
+        model = Contrato
+        fields = [
+            'linha_orcamentaria',
+            'data_assinatura',
+            'data_vencimento',
+            'fiscal_principal',
+            'fiscal_substituto',
+            'valor_contrato',
+        ]
+        widgets = {
+            'data_assinatura': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'data_vencimento': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'linha_orcamentaria': forms.Select(attrs={'class': 'form-select'}),
+            'fiscal_principal': forms.Select(attrs={'class': 'form-select'}),
+            'fiscal_substituto': forms.Select(attrs={'class': 'form-select'}),
+            'valor_contrato': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+# =========================================================================================================================
+
+class PrestacaoForm(forms.ModelForm):
+    class Meta:
+        model = Prestacao
+        fields = ['valor_parcela', 'data_pagamento']  # Remover o campo numero_parcela, pois será gerado automaticamente
+        widgets = {
+            'valor_parcela': forms.NumberInput(attrs={'class': 'form-control'}),
+            'data_pagamento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        }
+
+#===========================================================================================================================
+
+class RemanejamentoForm(forms.ModelForm):
+    class Meta:
+        model = Remanejamento
+        fields = [
+            'valor',
+            'linha_origem',
+            'linha_destino',
+            'motivo',
+        ]
+        widgets = {
+            'linha_origem': forms.Select(attrs={'class': 'form-control'}),
+            'linha_destino': forms.Select(attrs={'class': 'form-control'}),
+            'valor': forms.NumberInput(attrs={'class': 'form-control'}),
+            'motivo': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+#================================================================================================================================
+
+class AditivoForm(forms.ModelForm):
+    class Meta:
+        model = Aditivo
+        fields = ['contrato', 'data', 'valor', 'justificativa']
+        widgets = {
+            'contrato': forms.Select(attrs={'class': 'form-control'}),
+            'data': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'valor': forms.NumberInput(attrs={'class': 'form-control'}),
+            'justificativa': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            'contrato': 'Contrato',
+            'data': 'Data do Aditivo',
+            'valor': 'Valor do Aditivo',
+            'justificativa': 'Justificativa',
         }

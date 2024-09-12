@@ -13,7 +13,7 @@
             </a>
           </div>
           <div class="card-body">
-            <form method="GET" action="{% url 'contrato-list' %}">
+            <form method="GET" action="{% url 'contrato_list' %}">
               <div class="input-group mb-3">
                 <input type="text" class="form-control" name="search" placeholder="Buscar contrato...">
                 <button class="btn btn-primary" type="submit">Buscar</button>
@@ -36,8 +36,8 @@
                   <td>{{ contrato.valor_contrato }}</td>
                   <td>
                     <a href="{% url 'contrato_detail' contrato.pk %}" class="btn btn-info btn-sm">Detalhes</a>
-                    <a href="{% url 'contrato-update' contrato.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                    <form action="{% url 'contrato-delete' contrato.pk %}" method="POST" style="display:inline;">
+                    <a href="{% url 'contrato_update' contrato.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{% url 'contrato_delete' contrato.pk %}" method="POST" style="display:inline;">
                       {% csrf_token %}
                       <button type="submit" class="btn btn-danger btn-sm">Deletar</button>
                     </form>
