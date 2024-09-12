@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'budgets',
     'contracts',
     'aid',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
