@@ -22,7 +22,7 @@ class AuxilioColaboradorCreateView(CreateView):
     template_name = 'auxiliocolaborador_form.html'
     success_url = reverse_lazy('auxilio_colaborador_list')
 
-    
+
 class AuxilioColaboradorUpdateView(UpdateView):
     model = AuxilioColaborador
     form_class = AuxilioColaboradorForm
