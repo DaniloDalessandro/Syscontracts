@@ -1,6 +1,6 @@
 from django.db import models
 from collaborators.models import Colaborador
-from budgets.models import Orcamento
+from contracts.models import LinhaOrcamentaria
 from django.db.models import F
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -10,7 +10,7 @@ from django.core.validators import MinValueValidator
 
 class AuxilioColaborador(models.Model):
     beneficiado = models.ForeignKey(Colaborador, on_delete=models.PROTECT)
-    orcamento = models.ForeignKey(Orcamento, related_name='auxilios_colaboradores', on_delete=models.PROTECT)
+    linha = models.ForeignKey(LinhaOrcamentaria, related_name='auxilios_colaboradores', on_delete=models.PROTECT)
     tipo_choices = [
         ('Graduação', 'Graduação'),
         ('Pós-Graduação', 'Pós-Graduação'),
@@ -55,6 +55,6 @@ class AuxilioColaborador(models.Model):
     class Meta:
         verbose_name = 'Auxílio Colaborador'
         verbose_name_plural = 'Auxílios Colaboradores'
-        unique_together = ('beneficiado', 'orcamento', 'tipo', 'beneficio')
+        unique_together = ('beneficiado', 'linha', 'tipo', 'beneficio')
 
         
