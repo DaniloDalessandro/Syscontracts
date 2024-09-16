@@ -25,6 +25,7 @@ class AuxilioColaborador(models.Model):
     mes_inicio = models.DateField()
     qtd_parcelas = models.PositiveIntegerField()
     mes_fim = models.DateField(editable=False)
+    previsao_inicio = models.DateField(default='2024-09-16', blank=True, null=True)
     status_choices = [
         ('aguardando', 'Aguardando'),
         ('ativo', 'Ativo'),

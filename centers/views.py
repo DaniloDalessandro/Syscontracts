@@ -22,18 +22,18 @@ class CentroDeCustoGestorCreateView(CreateView):
     model = CentroDeCustoGestor
     form_class = CentroDeCustoGestorForm
     template_name = 'centrodecustogestor_form.html'
-    success_url = reverse_lazy('centrodecustogestor_list')
+    success_url = reverse_lazy('centro_gestor_list')
 
 class CentroDeCustoGestorUpdateView(UpdateView):
     model = CentroDeCustoGestor
     form_class = CentroDeCustoGestorForm
     template_name = 'centrodecustogestor_form.html'
-    success_url = reverse_lazy('centrodecustogestor_list')
+    success_url = reverse_lazy('centro_gestor_list')
 
 class CentroDeCustoGestorDeleteView(DeleteView):
     model = CentroDeCustoGestor
     template_name = 'centrodecustogestor_confirm_delete.html'
-    success_url = reverse_lazy('centrodecustogestor_list')
+    success_url = reverse_lazy('centro_gestor_list')
 
 #======================================================================================================================
 
