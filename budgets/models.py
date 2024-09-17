@@ -41,11 +41,11 @@ class Orcamento(models.Model):
             return orcamentos_internos + orcamentos_externos
         return self.valor
     
-    # @property
-    # def valor_restante(self):
-    #     linhas_orcamentarias = self.contratos.all()  # Accessing via related_name
-    #     total_linhas = sum(Decimal(linha.valor_orcado) for linha in linhas_orcamentarias)
-    #     return self.valor - total_linhas
+    @property
+    def valor_restante(self):
+        linhas_orcamentarias = self.contratos.all()  # Accessing via related_name
+        total_linhas = sum(Decimal(linha.valor_orcado) for linha in linhas_orcamentarias)
+        return self.valor - total_linhas
 
     def __str__(self):
         return f"{self.ano} - {self.centro}"

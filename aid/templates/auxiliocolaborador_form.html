@@ -12,6 +12,7 @@
                     <div class="card-body">
                         <form method="post">
                             {% csrf_token %}
+
                             <!-- Primeira linha com 3 campos -->
                             <div class="row">
                                 <div class="col-md-4">
@@ -34,39 +35,45 @@
                                 </div>
                             </div>
 
-                            <!-- Segunda linha com 2 campos -->
+                            <!-- Segunda linha com 3 campos -->
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="beneficio">Benefício</label>
                                         {{ form.beneficio }}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="valor_parcela">Valor por Parcela</label>
                                         {{ form.valor_parcela }}
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Terceira linha com 2 campos -->
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="qtd_parcelas">Quantidade de Parcelas</label>
                                         {{ form.qtd_parcelas }}
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- Linha apenas com os campos Início e Previsão de Início -->
+                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="mes_inicio">Mês de Início</label>
+                                        <label for="mes_inicio">Início</label>
                                         {{ form.mes_inicio }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="previsao_inicio">Previsão de Início</label>
+                                        {{ form.previsao_inicio }}
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Linha para Observações -->
+                            <!-- Linha completa com Observações -->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
