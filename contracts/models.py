@@ -137,16 +137,25 @@ class Contrato(models.Model):
     natureza_pagamento = models.CharField(choices=TIPO_PAGAMENTO_CHOICES,max_length=30)
        
     def generate_protocolo(self):
-        year_suffix = timezone.now().year % 100
+        year_suffix = timezone.now().year % 100  # Pega o ano atual e pega os dois últimos dígitos
         last_protocolo = Contrato.objects.filter(numero_protocolo__endswith=f"/{year_suffix}").order_by('id').last()
         
         if last_protocolo:
+            # Incrementa a sequência do último número de protocolo gerado
             last_sequence = int(last_protocolo.numero_protocolo.split('/')[0])
             new_sequence = f"{last_sequence + 1:04}"
         else:
+            # Se não houver nenhum protocolo para o ano atual, inicia a sequência em "0001"
             new_sequence = "0001"
 
         return f"{new_sequence}/{year_suffix}"
+    
+    def save(self, *args, **kwargs):
+        # Verifica se o numero_protocolo está vazio e o gera automaticamente
+        if not self.numero_protocolo:
+            self.numero_protocolo = self.generate_protocolo()
+        
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return self.numero_protocolo or "Linha Orçamentária sem Descrição"
