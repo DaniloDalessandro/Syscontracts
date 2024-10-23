@@ -43,7 +43,7 @@ class Orcamento(models.Model):
     
     @property
     def valor_restante(self):
-        linhas_orcamentarias = self.contratos.all()  # Accessing via related_name
+        linhas_orcamentarias = self.contratos.all()  
         total_linhas = sum(Decimal(linha.valor_orcado) for linha in linhas_orcamentarias)
         return self.valor - total_linhas
 
